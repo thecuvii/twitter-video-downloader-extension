@@ -3,3 +3,4 @@ dist
 .vscode
 extension.zip
 .DS_Store
+.env
