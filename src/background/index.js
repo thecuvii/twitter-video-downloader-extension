@@ -11,7 +11,7 @@ chrome.webRequest.onSendHeaders.addListener(
       credentials: Crypto.encrypt(
         process.env.SECRET_KEY,
         JSON.stringify(credentials)
-      ).ct,
+      ),
     });
   },
   { urls: ["*://api.twitter.com/2/timeline/*"], types: ["xmlhttprequest"] },
