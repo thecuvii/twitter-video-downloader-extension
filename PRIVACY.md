@@ -12,10 +12,10 @@ Bu izin sayesinde twitterdaki oturum bilgilerinizi saklayabiliyorum. Bu bilgiler
 
 İsteklerden alınan üst bilgiler ``chrome.storage`` API aracılığı ile şifrelenerek tarayıcıda saklanıyor. Bu hassas bilgiler kimseyla paylaşılmıyor ya da tarayıcıdan dışarıya çıkmıyor. Bilgilerin açığa çıkma durumuna karşı tüm bilgiler [Stanford Javascript Crypto Library](http://bitwiseshiftleft.github.io/sjcl/) aracılığı ile kriptolu bir şekilde saklanıyor. Kripto sırasında kullanılan gizli anahtar her seferinde rastgele bir şekilde yeniden oluşturuluyor.
 
-İlgili kod bloğunu görmek için [tıklayın.](https://github.com/mstfsnc/twitter-video-downloader/blob/64e0b53064b1e63b5f65a2337570ffe5373d2675/src/background/index.js#L6-L19)
+İlgili kod bloğunu görmek için [tıklayın.](https://github.com/mstfsnc/twitter-video-downloader/blob/master/src/background/index.js#L6-L19)
 
  - ### host
 
 Twitter API adreslerine istek atabilmek ve yapılan istekleri görmek için bu izne ihtiyaç var. ``api.twitter.com/2/timeline`` adresine yapılan "xmlhttprequest" isteklerin üst bilgilerini görüyor ve ``api.twitter.com/2/timeline/conversation/[id].json`` adresine videonun bilgilerini almak için istek atıyor.
 
-İlgili kod bloğunu görmek için [tıklayın.](https://github.com/mstfsnc/twitter-video-downloader/blob/64e0b53064b1e63b5f65a2337570ffe5373d2675/src/background/api.js#L4-L23)
+İlgili kod bloğunu görmek için [tıklayın.](https://github.com/mstfsnc/twitter-video-downloader/blob/master/src/background/api.js#L4-L23)
