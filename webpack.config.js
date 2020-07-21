@@ -2,7 +2,6 @@ const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ExtensionReloader = require("webpack-extension-reloader");
-const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   entry: {
@@ -73,10 +72,6 @@ module.exports = {
           to: "icons",
         },
       ],
-    }),
-    new Dotenv({
-      path: ".env",
-      safe: true,
-    }),
+    })
   ],
 };
