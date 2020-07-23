@@ -6,4 +6,8 @@ Download any twitter videos and gif with one simple click.
   - Simply press download icon
   - Video will be downloaded when loading complete
 
+### Add to Chrome  
+
+https://chrome.google.com/webstore/detail/twitter-video-downloader/akmdionenlnfcipmdhbhcnkighafmdha
+
 ![Screenshot](https://raw.githubusercontent.com/mstfsnc/twitter-video-downloader/master/screenshot.gif)
