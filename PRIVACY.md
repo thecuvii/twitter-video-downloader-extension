@@ -1,12 +1,12 @@
 ## PRIVACY
 
-Eklentinin çalışabilmesi için twitter oturumunuzla ilgili bazı hassas bilgilere ihtiyaç var. Bu bilgiler şifreli bir şekilde tarayıcıda saklanıyor ve kimseyle paylaşılmıyor.
+Eklentinin çalışabilmesi için twitter oturumunuzla ilgili bazı hassas bilgilere ihtiyaç var.
 
 Hangi iznin neden istendiğini açıklayayım:
 
  - ### webRequest
 
-Bu izin sayesinde twitterdaki oturum bilgilerinizi saklayabiliyorum. Bu bilgiler sayesinde Twitter API adreslerine istek atıp videoyu indirebilmeniz sağlanacak. Örneğin bir videoyu indirmek istendiğinizde ``https://api.twitter.com/2/timeline/conversation/[id].json`` adresine istek atıp videonun indirilebilir urlini öğrenmek gerekiyor. Fakat bu adrese istek atabilmek için ``x-guest-token`` ya da ``x-csrf-token`` ve ``authorization`` üst bilgisine ihtiyaç var. ``webRequest`` izni sayesinde tweetlerin yüklenmesi için yapılan isteklerin üst bilgisine erişip bunlardan gerekli bilgileri tarayıcıda şifreli bir şekilde saklıyorum.
+Bu izin sayesinde twitterdaki oturum bilgilerinizi bir değişkende saklıyorum. Bu bilgiler sayesinde Twitter API adreslerine istek atıp videoyu indirebilmeniz sağlanacak. Örneğin bir videoyu indirmek istendiğinizde ``https://api.twitter.com/2/timeline/conversation/[id].json`` adresine istek atıp videonun indirilebilir urlini öğrenmek gerekiyor. Fakat bu adrese istek atabilmek için ``x-guest-token`` ya da ``x-csrf-token`` ve ``authorization`` üst bilgisine ihtiyaç var. ``webRequest`` izni sayesinde tweetlerin yüklenmesi için yapılan isteklerin üst bilgisine erişip bunlardan gerekli bilgileri bir değişkende bir şekilde saklıyorum. Bu hassas bilgi saklanmıyor ya da tarayıcıdan dışarıya çıkmıyor.
 
  - ### host
 
