@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "Twitter Video Downloader",
-  "description": "Twitter video downloader",
+  "name": "One Click Twitter Video Download",
+  "description": "One Click Twitter Video Download",
   "author": "@0x15a",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "icons": {
     "16": "icons/icon-16.png",
     "24": "icons/icon-24.png",
