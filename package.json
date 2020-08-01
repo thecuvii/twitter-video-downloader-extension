@@ -1,7 +1,7 @@
 {
   "name": "one-click-twitter-video-download",
   "version": "1.0.2",
-  "description": "One Click Twitter Video Download",
+  "description": "Download any twitter videos and gif with one simple click",
   "main": "index.js",
   "scripts": {
     "watch": "node_modules/.bin/webpack --mode=development --watch",
