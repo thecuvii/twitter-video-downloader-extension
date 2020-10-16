@@ -2,7 +2,9 @@ import axios from "axios";
 
 export default class Api {
   constructor(credentials) {
-    axios.defaults.baseURL = "https://api.twitter.com/2/timeline/conversation/";
+    axios.defaults.baseURL =
+      "https://twitter.com/i/api/2/timeline/conversation/";
+    console.log(credentials);
     credentials.forEach((credential) => {
       axios.defaults.headers.common[credential.name] = credential.value;
     });
