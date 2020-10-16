@@ -6,7 +6,8 @@
   "scripts": {
     "watch": "node_modules/.bin/webpack --mode=development --watch",
     "build": "node_modules/.bin/webpack --mode=production",
-    "pretty": "node_modules/.bin/prettier --write src/**/*.{js,scss,json}"
+    "pretty": "node_modules/.bin/prettier --write src/**/*.{js,scss,json}",
+    "zip": "zip -r extension.zip dist/"
   },
   "author": "@0x15a",
   "license": "ISC",

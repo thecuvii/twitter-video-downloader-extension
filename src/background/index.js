@@ -8,14 +8,12 @@ import Api from "./api";
       credentials = details.requestHeaders.filter(
         (_) => headers.indexOf(_.name) > -1
       );
-      console.log(details.requestHeaders);
     },
     { urls: ["*://twitter.com/i/api/2/timeline/*"], types: ["xmlhttprequest"] },
     ["requestHeaders"]
   );
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === "getVideoUrl") {
-      console.log(credentials);
       const api = new Api(credentials);
       api
         .fetch(request.id)
