@@ -9,7 +9,7 @@
     "pretty": "node_modules/.bin/prettier --write src/**/*.{js,scss,json}",
     "zip": "zip -r extension.zip dist/"
   },
-  "author": "@0x15a",
+  "author": "@mstfsnc",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.10.5",
