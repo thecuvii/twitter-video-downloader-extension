@@ -17,8 +17,10 @@ export default class Api {
         (_) => _.content_type === "video/mp4"
       );
 
+      const orderVideosByBitrate = videos.sort((a, b) => b.bitrate - a.bitrate);
+
       return {
-        url: videos[0].url,
+        url: orderVideosByBitrate[0].url,
         name: tweet.full_text.substring(0, 50),
       };
     });
