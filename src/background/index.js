@@ -1,8 +1,4 @@
-import Sentry from "./../sentry";
 import Api from "./api";
-
-// init sentry
-Sentry();
 
 (() => {
   let credentials;
