@@ -19,9 +19,7 @@ export default class Observer {
                 if (time) {
                   link = time.parentNode;
                 } else {
-                  link = article.querySelector(
-                    'a[href*="/retweets/with_comments"]'
-                  );
+                  link = article.querySelector('a[href*="/status/"]');
                 }
 
                 const buttonGroup = article.querySelector('[role="group"]');

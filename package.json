@@ -1,6 +1,6 @@
 {
   "name": "one-click-twitter-video-download",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Download any twitter videos and gif with one simple click",
   "main": "index.js",
   "scripts": {
