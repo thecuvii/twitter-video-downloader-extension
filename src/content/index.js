@@ -19,7 +19,12 @@ observer.observe((tweet) => {
         async (response) => {
           if (response && response.status) {
             await downloader.download(response.url, response.name);
+            button.classList.add("success");
+          } else {
+            button.classList.add("error");
           }
+
+          button.disabled = true;
           button.classList.remove("loading");
         }
       );

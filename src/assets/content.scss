@@ -52,14 +52,61 @@
           }
         }
       }
+
+      .error-icon {
+        display: none;
+        opacity: 0.8;
+        color: #f91880;
+      }
+      .success-icon {
+        display: none;
+        opacity: 0.8;
+        color: #00ba7c;
+      }
     }
 
     &.loading {
       .loading-icon {
         display: flex;
       }
-      .download-icon {
+      .download-icon,
+      .error-icon,
+      .success-icon {
         display: none;
+      }
+    }
+
+    &.error {
+      .error-icon {
+        display: flex;
+      }
+      .loading-icon,
+      .download-icon,
+      .success-icon {
+        display: none;
+      }
+
+      .download-container {
+        &:hover {
+          background-color: inherit;
+          color: inherit;
+        }
+      }
+    }
+    &.success {
+      .success-icon {
+        display: flex;
+      }
+      .loading-icon,
+      .download-icon,
+      .error-icon {
+        display: none;
+      }
+      .download-container {
+        &:hover {
+          background-color: inherit;
+          color: inherit;
+        }
       }
     }
   }

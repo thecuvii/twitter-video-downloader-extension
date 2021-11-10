@@ -1,4 +1,8 @@
+import Sentry from "./../sentry";
 import Api from "./api";
+
+// init sentry
+Sentry();
 
 (() => {
   let credentials;
@@ -9,7 +13,7 @@ import Api from "./api";
         (_) => headers.indexOf(_.name) > -1
       );
     },
-    { urls: ["*://twitter.com/i/api/2/timeline/*"], types: ["xmlhttprequest"] },
+    { urls: ["*://twitter.com/i/api/*"], types: ["xmlhttprequest"] },
     ["requestHeaders"]
   );
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
