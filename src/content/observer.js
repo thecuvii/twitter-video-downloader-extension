@@ -4,33 +4,30 @@ export default class Observer {
       mutations.forEach((mutation) => {
         mutation.addedNodes.forEach((element) => {
           try {
-            const videos = element.querySelectorAll(
-              'div[data-testid="previewInterstitial"], div[data-testid="placementTracking"]'
+            const playIcons = element.querySelectorAll(
+              'path[d^="M20.436 11.37L5.904"]'
             );
 
-            videos.forEach((video) => {
-              const article = video.closest("article[role='article']");
-              const isBlockquote = article.querySelector('[role="blockquote"]');
+            playIcons.forEach((icon) => {
+              const isQuote = icon.closest('div[role="link"]');
+              if (isQuote) {
+                return false;
+              }
 
-              if (!isBlockquote) {
-                let link;
+              const isCard = icon.closest('div[data-testid="card.wrapper"]');
+              if (isCard) {
+                return false;
+              }
 
-                const time = article.querySelector("time[datetime]");
-                if (time) {
-                  link = time.parentNode;
-                } else {
-                  link = article.querySelector('a[href*="/status/"]');
-                }
-
-                const buttonGroup = article.querySelector('[role="group"]');
-
-                if (link && buttonGroup) {
+              const article = icon.closest("article[role='article']");
+              if (article) {
+                const link = article.querySelector('a[href*="/status/"]');
+                if (link) {
                   const url = link.getAttribute("href");
                   const [, , , statusId] = url.split("/");
-
                   callback({
                     id: statusId,
-                    $el: buttonGroup,
+                    $el: article.querySelector('[role="group"]'),
                   });
                 }
               }
