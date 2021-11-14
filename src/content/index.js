@@ -6,8 +6,8 @@ import Button from "./button.html";
 const observer = new Observer();
 
 observer.observe((tweet) => {
-  if (!tweet.$el.classList.contains("button-group")) {
-    tweet.$el.classList.add("button-group");
+  if (!tweet.$el.getAttribute("data-extension-button")) {
+    tweet.$el.setAttribute("data-extension-button", true);
     const { width, height } = tweet.$el
       .querySelector("svg")
       .getBoundingClientRect();
