@@ -10,9 +10,12 @@ chrome.webRequest.onSendHeaders.addListener(
       "x-twitter-active-user",
       "authorization",
     ];
-    headers = details.requestHeaders.filter(
+    const requestHeaders = details.requestHeaders.filter(
       (_) => availableHeaders.indexOf(_.name) > -1
     );
+    if (requestHeaders.length >= headers.length) {
+      headers = requestHeaders;
+    }
   },
   { urls: ["*://twitter.com/i/api/*"], types: ["xmlhttprequest"] },
   ["requestHeaders"]
