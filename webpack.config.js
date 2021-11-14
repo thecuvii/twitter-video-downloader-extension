@@ -33,7 +33,10 @@ const options = {
               presets: [
                 ["@babel/preset-env", { useBuiltIns: "entry", corejs: 3 }],
               ],
-              plugins: ["@babel/plugin-transform-runtime"],
+              plugins: [
+                "@babel/plugin-transform-runtime",
+                "@babel/plugin-proposal-optional-chaining",
+              ],
             },
           },
         ],

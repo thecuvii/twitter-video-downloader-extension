@@ -1,13 +1,12 @@
 export default class Api {
-  constructor(headers) {
+  constructor() {
     this.baseURL = "https://twitter.com/i/api/2/timeline/conversation/";
-    this.headers = [...headers.map((_) => [_.name, _.value])];
   }
 
-  fetch(id) {
+  fetch(headers, id) {
     return fetch(`${this.baseURL}${id}.json?tweet_mode=extended`, {
       credentials: "include",
-      headers: new Headers(this.headers),
+      headers: new Headers({ ...headers }),
     })
       .then((response) => response.json())
       .then((response) => {
