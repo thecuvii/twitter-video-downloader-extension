@@ -26,7 +26,8 @@
     }
   ],
   "permissions": [
-    "webRequest"
+    "webRequest",
+    "storage"
   ],
   "host_permissions": [
     "*://twitter.com/*"

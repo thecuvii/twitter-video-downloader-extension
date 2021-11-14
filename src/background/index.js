@@ -16,15 +16,18 @@ Sentry.init({
   ignoreErrors: ["ResizeObserver loop limit exceeded"],
 });
 
-let headers = {};
 chrome.webRequest.onSendHeaders.addListener(
   (details) => {
-    const availableHeaders = ["x-guest-token", "x-csrf-token", "authorization"];
-    details.requestHeaders.forEach((header) => {
-      if (availableHeaders.indexOf(header.name) > -1 && header.value) {
-        headers[header.name] = header.value;
-      }
+    const headers = details.requestHeaders.filter((header) => {
+      return (
+        ["x-guest-token", "x-csrf-token", "authorization"].indexOf(
+          header.name
+        ) > -1
+      );
     });
+    if (headers.length) {
+      chrome.storage.sync.set({ headers });
+    }
   },
   { urls: ["*://twitter.com/i/api/*"], types: ["xmlhttprequest"] },
   ["requestHeaders"]
@@ -33,7 +36,7 @@ const api = new Api();
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "getVideoUrl") {
     api
-      .fetch(headers, request.id)
+      .fetch(request.id)
       .then((response) => {
         sendResponse({
           status: true,
@@ -42,10 +45,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         });
       })
       .catch((error) => {
-        Sentry.withScope(async (scope) => {
-          scope.setExtra("length", headers.length);
-          Sentry.captureException(error);
-        });
+        Sentry.captureException(error);
         sendResponse({
           status: false,
         });
