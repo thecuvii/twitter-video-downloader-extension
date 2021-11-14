@@ -1,5 +1,4 @@
-node_modules
 .vscode
-extension.zip
 .DS_Store
-.env
+node_modules
+extension.zip

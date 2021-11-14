@@ -4,12 +4,13 @@ import Mustache from "mustache";
 import Button from "./button.html";
 
 const observer = new Observer();
-const downloader = new Downloader();
 
 observer.observe((tweet) => {
-  if (!tweet.$el.classList.contains("button-group")) {
-    tweet.$el.classList.add("button-group");
-    const { clientWidth, clientHeight } = tweet.$el.querySelector("svg");
+  if (!tweet.$el.getAttribute("data-extension-button")) {
+    tweet.$el.setAttribute("data-extension-button", true);
+    const { width, height } = tweet.$el
+      .querySelector("svg")
+      .getBoundingClientRect();
 
     const button = document.createElement("button");
     button.addEventListener("click", () => {
@@ -17,8 +18,8 @@ observer.observe((tweet) => {
       chrome.runtime.sendMessage(
         { action: "getVideoUrl", id: tweet.id },
         async (response) => {
-          if (response && response.status) {
-            await downloader.download(response.url, response.name);
+          if (response?.status) {
+            await Downloader.download(response.url, response.name);
             button.classList.add("success");
           } else {
             button.classList.add("error");
@@ -33,8 +34,8 @@ observer.observe((tweet) => {
     button.insertAdjacentHTML(
       "beforeend",
       Mustache.render(Button, {
-        clientWidth,
-        clientHeight,
+        width,
+        height,
       })
     );
 

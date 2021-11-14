@@ -6,10 +6,15 @@ Hangi iznin neden istendiğini açıklayayım:
 
  - ### webRequest
 
-Bu izin sayesinde twitterdaki oturum bilgilerinizi bir değişkende saklıyorum. Bu bilgiler sayesinde Twitter API adreslerine istek atıp videoyu indirebilmeniz sağlanacak. Örneğin bir videoyu indirmek istendiğinizde ``https://twitter.com/i/api/2/timeline/conversation/[id].json`` adresine istek atıp videonun indirilebilir urlini öğrenmek gerekiyor. Fakat bu adrese istek atabilmek için ``x-guest-token`` ya da ``x-csrf-token`` ve ``authorization`` üst bilgisine ihtiyaç var. ``webRequest`` izni sayesinde tweetlerin yüklenmesi için yapılan isteklerin üst bilgisine erişip bunlardan gerekli bilgileri bir değişkende tutuyorum. Bu hassas bilgi saklanmıyor ya da tarayıcıdan dışarıya çıkmıyor.
+Bir videoyu indirmek için ``https://twitter.com/i/api/2/timeline/conversation/[id].json`` adresine istek atıp videonun indirilebilir urlini öğrenmek gerekiyor. Fakat bu adrese istek atabilmek için ``x-guest-token`` ya da ``x-csrf-token`` ve ``authorization`` üst bilgilerine ihtiyaç var. Bu üç üst bilgisi ``webRequest`` sayesinde tweetlerin yüklenmesi için yapılan isteklerden toplanıyor.
 
- - ### host
+Kullanılan yerler:
+[chrome.webRequest.onSendHeaders](https://github.com/mstfsnc/twitter-video-downloader/blob/master/src/background/index.js#L19-L34)
 
-Twitter API adreslerine istek atabilmek ve yapılan istekleri görmek için bu izne ihtiyaç var. ``twitter.com/i/api/2/timeline`` adresine yapılan "xmlhttprequest" isteklerin üst bilgilerini görüyor ve ``twitter.com/i/api/2/timeline/conversation/[id].json`` adresine videonun bilgilerini almak için istek atıyor.
+ - ### storage
 
-İlgili kod bloğunu görmek için [tıklayın.](https://github.com/mstfsnc/twitter-video-downloader/blob/master/src/background/api.js#L4-L23)
+``webRequest`` sayesinde toplanan üst bilgiler daha sonra videoyu indirme sırasında kullanılmak üzere storagede saklanıyor. Bu bilgiler eklentiden dışarıya çıkmadığı gibi video indirme dışında bir amaçla kullanılmıyor.
+
+Kullanılan yerler: 
+[chrome.storage.sync.set](https://github.com/mstfsnc/twitter-video-downloader/blob/master/src/background/index.js#L29),
+[chrome.storage.sync.get](https://github.com/mstfsnc/twitter-video-downloader/blob/master/src/background/api.js#L7)
