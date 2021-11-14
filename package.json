@@ -35,6 +35,8 @@
     "zip": "zip -r extension.zip dist/"
   },
   "dependencies": {
+    "@sentry/browser": "^6.14.3",
+    "@sentry/tracing": "^6.14.3",
     "mustache": "^4.2.0"
   }
 }

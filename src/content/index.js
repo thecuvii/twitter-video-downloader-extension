@@ -1,7 +1,18 @@
+import * as Sentry from "@sentry/browser";
+import { Integrations } from "@sentry/tracing";
+
 import Observer from "./observer";
 import Downloader from "./downloader";
 import Mustache from "mustache";
 import Button from "./button.html";
+
+Sentry.init({
+  dsn: "https://fc848409a9c3467aa951cebecef8669d@o311889.ingest.sentry.io/6057986",
+  // eslint-disable-next-line no-undef
+  release: chrome.runtime.getManifest().version,
+  integrations: [new Integrations.BrowserTracing()],
+  tracesSampleRate: 1.0,
+});
 
 const observer = new Observer();
 
@@ -22,6 +33,7 @@ observer.observe((tweet) => {
             await Downloader.download(response.url, response.name);
             button.classList.add("success");
           } else {
+            Sentry.captureException(response.message);
             button.classList.add("error");
           }
 
