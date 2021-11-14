@@ -12,6 +12,7 @@ Sentry.init({
   release: chrome.runtime.getManifest().version,
   integrations: [new Integrations.BrowserTracing()],
   tracesSampleRate: 1.0,
+  ignoreErrors: ["ResizeObserver loop limit exceeded"],
 });
 
 const observer = new Observer();
@@ -33,7 +34,11 @@ observer.observe((tweet) => {
             await Downloader.download(response.url, response.name);
             button.classList.add("success");
           } else {
-            Sentry.captureException(response.error);
+            Sentry.withScope(async (scope) => {
+              scope.setExtra("id", tweet.id);
+              scope.setExtra("length", response.length);
+              Sentry.captureMessage(response.message);
+            });
             button.classList.add("error");
           }
 

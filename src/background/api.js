@@ -23,7 +23,6 @@ export default class Api {
         const orderVideosByBitrate = videos.sort(
           (a, b) => b.bitrate - a.bitrate
         );
-
         return {
           url: orderVideosByBitrate[0].url,
           name: tweet.full_text.substring(0, 50),
