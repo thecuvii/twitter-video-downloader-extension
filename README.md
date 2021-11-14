@@ -10,4 +10,4 @@ Download twitter videos with one simple click.
 
 https://chrome.google.com/webstore/detail/twitter-video-downloader/akmdionenlnfcipmdhbhcnkighafmdha
 
-![Screenshot](https://raw.githubusercontent.com/mstfsnc/twitter-video-downloader/master/screenshot.gif)
+![Screenshot](https://raw.githubusercontent.com/mstfsnc/twitter-video-downloader/master/public/screenshot.gif)
