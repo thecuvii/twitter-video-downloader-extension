@@ -33,7 +33,7 @@ observer.observe((tweet) => {
             await Downloader.download(response.url, response.name);
             button.classList.add("success");
           } else {
-            Sentry.captureException(response.message);
+            Sentry.captureMessage(response.message);
             button.classList.add("error");
           }
 
