@@ -1,4 +1,4 @@
-## Twitter video download extension
+## Twitter video downloader extension
 
 Download twitter videos with one simple click.
 
