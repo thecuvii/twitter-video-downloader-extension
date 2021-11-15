@@ -53,12 +53,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     return true;
   }
 });
-chrome.runtime.onInstalled.addListener(({ reason }) => {
-  if (reason === chrome.runtime.OnInstalledReason.INSTALL) {
-    chrome.tabs.query({ url: "*://twitter.com/*" }).then((tabs) => {
-      tabs.forEach((tab) => {
-        chrome.tabs.reload(tab.id);
-      });
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.tabs.query({ url: "*://twitter.com/*" }).then((tabs) => {
+    tabs.forEach((tab) => {
+      chrome.tabs.reload(tab.id);
     });
-  }
+  });
 });
