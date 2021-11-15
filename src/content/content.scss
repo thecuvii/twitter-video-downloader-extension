@@ -17,6 +17,14 @@
     background: none;
     cursor: pointer;
 
+    &.error {
+      .download-container {
+        &:hover {
+          background-color: rgba(211, 63, 73, 0.1);
+        }
+      }
+    }
+
     .download-container {
       display: flex;
       flex-direction: column;
@@ -37,13 +45,17 @@
         background-color: rgba(119, 186, 153, 0.1);
       }
 
+      .error-icon {
+        color: rgb(211, 63, 73);
+      }
+
+      .loading-icon,
       .success-icon,
       .error-icon {
         display: none;
       }
 
       .loading-icon {
-        display: none;
         animation-timing-function: linear;
         animation-name: spin;
         animation-iteration-count: infinite;
