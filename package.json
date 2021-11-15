@@ -31,7 +31,7 @@
     "dev": "NODE_ENV=development node_modules/.bin/webpack --watch",
     "build": "NODE_ENV=production node_modules/.bin/webpack",
     "lint": "node_modules/.bin/eslint .",
-    "pretty": "node_modules/.bin/prettier --write src/**/*.{js,scss}",
+    "pretty": "node_modules/.bin/prettier --write src/**/*.{js,scss} --write ./*.{js,json}",
     "zip": "zip -r extension.zip dist/"
   },
   "dependencies": {

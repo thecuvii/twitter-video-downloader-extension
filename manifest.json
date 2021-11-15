@@ -8,28 +8,16 @@
     "128": "icons/icon-128.png"
   },
   "background": {
-    "scripts": [
-      "background.bundle.js"
-    ],
+    "scripts": ["background.bundle.js"],
     "persistent": true
   },
   "content_scripts": [
     {
       "run_at": "document_start",
-      "matches": [
-        "*://twitter.com/*"
-      ],
-      "js": [
-        "content.bundle.js"
-      ],
-      "css": [
-        "content.bundle.css"
-      ]
+      "matches": ["*://twitter.com/*"],
+      "js": ["content.bundle.js"],
+      "css": ["content.bundle.css"]
     }
   ],
-  "permissions": [
-    "webRequest",
-    "tabs",
-    "*://twitter.com/*"
-  ]
+  "permissions": ["webRequest", "tabs", "*://twitter.com/*"]
 }
