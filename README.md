@@ -1,6 +1,6 @@
 ## Twitter video downloader extension
 
-Download twitter videos with one simple click.
+Download twitter videos in best quality with one simple click. Always free.
 
   - After installation, you will see a download icon under every tweet, which contains a video
   - Simply press download icon
