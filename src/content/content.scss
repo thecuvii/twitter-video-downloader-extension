@@ -17,12 +17,6 @@
     background: none;
     cursor: pointer;
 
-    &.error {
-      .download-container:hover {
-        background-color: rgba(244, 33, 46, 0.1);
-      }
-    }
-
     .download-container {
       display: flex;
       flex-direction: column;
@@ -33,22 +27,14 @@
       transition-duration: 0.2s;
       transition-property: background-color, box-shadow;
       font-size: 17px;
+      color: rgb(119, 186, 153);
 
       svg {
         fill: currentcolor;
       }
 
       &:hover {
-        background-color: rgba(29, 161, 242, 0.1);
-      }
-
-      .download-icon,
-      .success-icon {
-        color: rgb(29, 161, 242);
-      }
-
-      .error-icon {
-        color: rgb(244, 33, 46);
+        background-color: rgba(119, 186, 153, 0.1);
       }
 
       .success-icon,
@@ -64,7 +50,7 @@
         animation-duration: 0.75s;
 
         circle {
-          stroke: rgb(29, 161, 242);
+          stroke: rgb(119, 186, 153);
 
           &:first-child {
             opacity: 0.2;
