@@ -4,7 +4,7 @@ export default class Api {
   }
 
   fetch(id) {
-    return chrome.storage.sync.get(["headers"]).then(({ headers }) => {
+    return chrome.storage.sync.get(["headers"]).then(({ headers = [] }) => {
       return fetch(`${this.baseURL}${id}.json?tweet_mode=extended`, {
         credentials: "include",
         headers: new Headers([...headers.map((_) => [_.name, _.value])]),
