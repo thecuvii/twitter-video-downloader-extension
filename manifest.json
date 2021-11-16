@@ -19,5 +19,5 @@
       "css": ["content.bundle.css"]
     }
   ],
-  "permissions": ["webRequest", "tabs", "*://twitter.com/*"]
+  "permissions": ["webRequest", "*://twitter.com/*"]
 }

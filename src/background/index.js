@@ -48,9 +48,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 });
 chrome.runtime.onInstalled.addListener(() => {
-  chrome.tabs.query({ url: "*://twitter.com/*" }, (tabs) => {
-    tabs.forEach((tab) => {
-      chrome.tabs.reload(tab.id);
-    });
-  });
+  chrome.tabs.query(
+    { url: "*://twitter.com/*", currentWindow: true },
+    (tabs) => {
+      tabs.forEach((tab) => {
+        chrome.tabs.reload(tab.id);
+      });
+    }
+  );
 });
