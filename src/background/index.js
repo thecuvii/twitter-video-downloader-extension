@@ -1,20 +1,4 @@
-import * as Sentry from "@sentry/browser";
-import { Integrations } from "@sentry/tracing";
-
 import Api from "./api";
-
-Sentry.init({
-  dsn: "https://fc848409a9c3467aa951cebecef8669d@o311889.ingest.sentry.io/6057986",
-  // eslint-disable-next-line no-undef
-  release: chrome.runtime.getManifest().version,
-  integrations: [
-    new Integrations.BrowserTracing({
-      routingInstrumentation: () => {},
-    }),
-  ],
-  tracesSampleRate: 1.0,
-  ignoreErrors: ["ResizeObserver loop limit exceeded"],
-});
 
 let headers = [];
 chrome.webRequest.onSendHeaders.addListener(
@@ -55,8 +39,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           name: response.name,
         });
       })
-      .catch((error) => {
-        Sentry.captureException(error);
+      .catch(() => {
         sendResponse({
           status: false,
         });
