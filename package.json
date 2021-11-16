@@ -1,7 +1,7 @@
 {
   "name": "twitter-video-downloader-extension",
   "version": "2.0.1",
-  "description": "Twitter video downloader extension",
+  "description": "Download twitter videos in best quality with one simple click",
   "main": "src/main.js",
   "repository": "https://github.com/mstfsnc/twitter-video-downloader-extension.git",
   "author": "Mustafa Sancu",
