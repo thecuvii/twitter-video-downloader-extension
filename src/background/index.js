@@ -1,28 +1,19 @@
 import Api from "./api";
 
-let headers = [];
+const headers = {};
 chrome.webRequest.onSendHeaders.addListener(
   (details) => {
-    const newHeaders = details.requestHeaders.filter((header) => {
-      const isHeaderInScope =
-        ["x-guest-token", "x-csrf-token", "authorization"].indexOf(
-          header.name
-        ) > -1;
-      if (!isHeaderInScope) {
-        return false;
-      }
-      const isHeaderAlreadySet = headers.find(
-        (h) => h.name === header.name && h.value === header.value
-      );
-      if (isHeaderAlreadySet) {
-        return false;
-      }
-      return true;
-    });
-
-    if (newHeaders.length) {
-      headers = [...headers, ...newHeaders];
-    }
+    details.requestHeaders
+      .filter((header) => {
+        return (
+          ["x-guest-token", "x-csrf-token", "authorization"].indexOf(
+            header.name
+          ) > -1
+        );
+      })
+      .forEach((header) => {
+        headers[header.name] = header.value;
+      });
   },
   { urls: ["*://twitter.com/i/api/*"], types: ["xmlhttprequest"] },
   ["requestHeaders"]
