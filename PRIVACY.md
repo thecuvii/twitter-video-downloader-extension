@@ -8,4 +8,4 @@ Bir videoyu indirmek için ``https://twitter.com/i/api/2/timeline/conversation/[
 
 
 Kullanılan yer:
-[chrome.webRequest.onSendHeaders](https://github.com/mstfsnc/twitter-video-downloader/blob/master/src/background/index.js#L20-L45)
+[chrome.webRequest.onSendHeaders](https://github.com/mstfsnc/twitter-video-downloader/blob/master/src/background/index.js#L3-L20)
