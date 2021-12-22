@@ -14,10 +14,10 @@
   "content_scripts": [
     {
       "run_at": "document_start",
-      "matches": ["*://twitter.com/*"],
+      "matches": ["*://*.twitter.com/*"],
       "js": ["content.bundle.js"],
       "css": ["content.bundle.css"]
     }
   ],
-  "permissions": ["webRequest", "*://twitter.com/*"]
+  "permissions": ["webRequest", "*://*.twitter.com/*"]
 }

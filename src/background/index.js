@@ -1,5 +1,6 @@
 import Api from "./api";
 
+let apiOrigin = "https://twitter.com";
 const headers = {};
 chrome.webRequest.onSendHeaders.addListener(
   (details) => {
@@ -12,17 +13,18 @@ chrome.webRequest.onSendHeaders.addListener(
         );
       })
       .forEach((header) => {
+        apiOrigin = details.initiator;
         headers[header.name] = header.value;
       });
   },
-  { urls: ["*://twitter.com/i/api/*"], types: ["xmlhttprequest"] },
+  { urls: ["*://*.twitter.com/i/api/*"], types: ["xmlhttprequest"] },
   ["requestHeaders"]
 );
 const api = new Api();
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "getVideoUrl") {
     api
-      .fetch(request.id, headers)
+      .fetch(apiOrigin, request.id, headers)
       .then((response) => {
         sendResponse({
           status: true,
