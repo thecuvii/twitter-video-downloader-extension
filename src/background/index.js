@@ -13,7 +13,7 @@ chrome.webRequest.onSendHeaders.addListener(
         );
       })
       .forEach((header) => {
-        if (details.initiator) {
+        if (details.initiator.includes("twitter.com")) {
           apiOrigin = details.initiator;
         }
         if (header.value) {
