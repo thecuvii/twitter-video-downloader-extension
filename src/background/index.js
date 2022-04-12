@@ -13,8 +13,12 @@ chrome.webRequest.onSendHeaders.addListener(
         );
       })
       .forEach((header) => {
-        apiOrigin = details.initiator;
-        headers[header.name] = header.value;
+        if (details.initiator) {
+          apiOrigin = details.initiator;
+        }
+        if (header.value) {
+          headers[header.name] = header.value;
+        }
       });
   },
   { urls: ["*://*.twitter.com/i/api/*"], types: ["xmlhttprequest"] },
