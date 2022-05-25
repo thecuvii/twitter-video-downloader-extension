@@ -1,0 +1,88 @@
+[data-twitter-video-downloader-extension] {
+  max-width: 100% !important;
+  .extension-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    .extension-button-container {
+      display: flex;
+      position: relative;
+      .extension-button-hover {
+        margin: -8px;
+        display: inline-flex;
+        background-color: rgba(0, 0, 0, 0);
+        transition-property: background-color, box-shadow;
+        transition-duration: 0.2s;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border-radius: 9999px;
+
+        &:hover {
+          background-color: rgba(119, 186, 153, 0.2);
+        }
+      }
+
+      svg {
+        fill: currentcolor;
+        color: #77ba99;
+        &.loading-icon {
+          display: none;
+          animation-timing-function: linear;
+          animation-name: spin;
+          animation-iteration-count: infinite;
+          animation-duration: 0.75s;
+
+          circle {
+            stroke: rgb(119, 186, 153);
+
+            &:first-child {
+              opacity: 0.2;
+            }
+
+            &:nth-child(2) {
+              stroke-dasharray: 80;
+              stroke-dashoffset: 60;
+            }
+          }
+        }
+        &.success-icon {
+          display: none;
+        }
+      }
+    }
+
+    &.loading {
+      svg.loading-icon {
+        display: flex;
+      }
+      svg.download-icon,
+      svg.success-icon {
+        display: none;
+      }
+    }
+    &.success {
+      svg.loading-icon,
+      svg.download-icon {
+        display: none;
+      }
+      svg.success-icon {
+        display: flex;
+      }
+    }
+  }
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

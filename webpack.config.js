@@ -9,41 +9,37 @@ const options = {
   entry: {
     content: [
       path.resolve(__dirname, "src/content/index.js"),
-      path.resolve(__dirname, "src/content/content.scss"),
+      path.resolve(__dirname, "src/content/index.scss"),
     ],
-    background: "./src/background/index.js",
+    inject: path.resolve(__dirname, "src/inject.js"),
+    background: path.resolve(__dirname, "src/background/index.js"),
   },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "[name].bundle.js",
+    filename: "[name].js",
     clean: true,
   },
   module: {
     rules: [
       {
-        test: /\.(js)$/,
-        use: [
-          {
-            loader: "source-map-loader",
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            cacheDirectory: true,
+            presets: [
+              ["@babel/preset-env", { useBuiltIns: "entry", corejs: 3 }],
+            ],
+            plugins: [
+              "@babel/plugin-transform-runtime",
+              "@babel/plugin-proposal-optional-chaining",
+            ],
           },
-          {
-            loader: "babel-loader",
-            options: {
-              cacheDirectory: true,
-              presets: [
-                ["@babel/preset-env", { useBuiltIns: "entry", corejs: 3 }],
-              ],
-              plugins: [
-                "@babel/plugin-transform-runtime",
-                "@babel/plugin-proposal-optional-chaining",
-              ],
-            },
-          },
-        ],
-        exclude: /node_modules/,
+        },
       },
       {
-        test: /\.(sa|sc|c)ss$/,
+        test: /\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
           "css-loader",
@@ -61,7 +57,7 @@ const options = {
   plugins: [
     new webpack.ProgressPlugin(),
     new MiniCssExtractPlugin({
-      filename: "[name].bundle.css",
+      filename: "[name].css",
     }),
     new CopyWebpackPlugin({
       patterns: [
@@ -98,7 +94,6 @@ const options = {
       ],
     }),
   ],
-  target: "web",
 };
 
 if (process.env.NODE_ENV === "development") {
