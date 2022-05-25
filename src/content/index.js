@@ -1,44 +1,49 @@
-import Observer from "./observer";
-import Downloader from "./downloader";
-import Mustache from "mustache";
+import onRequestDone from "./xhr";
+import parseRequest from "./parse";
+import downloadVideo from "./download";
+import observeDom from "./observe";
 import Button from "./button.html";
+import Mustache from "mustache";
 
-const observer = new Observer();
+const videos = [];
+onRequestDone(function (response) {
+  const requestVideos = parseRequest(response);
+  if (requestVideos.length) {
+    videos.push(...requestVideos);
+  }
+});
 
-observer.observe((tweet) => {
-  if (!tweet.$el.getAttribute("data-extension-button")) {
-    tweet.$el.setAttribute("data-extension-button", true);
-    const { width, height } = tweet.$el
+observeDom(function ({ $group, $image }) {
+  const checkVideo = videos.find(function (video) {
+    return $image.src.indexOf(video.photo) > -1;
+  });
+  const checkExtensionButton = $group.getAttribute(
+    "data-twitter-video-downloader-extension"
+  );
+  if (checkVideo && !checkExtensionButton) {
+    $group.setAttribute("data-twitter-video-downloader-extension", "true");
+    const { width, height } = $group
       .querySelector("svg")
       .getBoundingClientRect();
 
-    const button = document.createElement("button");
-    button.addEventListener("click", () => {
-      button.classList.add("loading");
-      chrome.runtime.sendMessage(
-        { action: "getVideoUrl", id: tweet.id },
-        async (response) => {
-          if (response?.status) {
-            await Downloader.download(response.url, response.name);
-            button.classList.add("success");
-          } else {
-            button.classList.add("error");
-          }
-
-          button.disabled = true;
-          button.classList.remove("loading");
-        }
-      );
-    });
-
-    button.insertAdjacentHTML(
+    const $button = document.createElement("button");
+    $button.classList.add("extension-button");
+    $button.setAttribute("role", "button");
+    $button.insertAdjacentHTML(
       "beforeend",
       Mustache.render(Button, {
         width,
         height,
       })
     );
-
-    tweet.$el.appendChild(button);
+    $group.appendChild($button);
+    $button.addEventListener("click", async function (event) {
+      event.preventDefault();
+      this.disabled = true;
+      this.classList.add("loading");
+      await downloadVideo(checkVideo.video, checkVideo.id);
+      this.classList.remove("loading");
+      this.classList.add("success");
+    });
   }
 });

@@ -1,0 +1,1 @@
+chrome.runtime.onInstalled.addListener((function(){chrome.tabs.query({url:"*://twitter.com/*",currentWindow:!0},(function(n){n.forEach((function(n){chrome.tabs.reload(n.id)}))}))}));

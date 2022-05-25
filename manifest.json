@@ -1,6 +1,7 @@
 {
-  "manifest_version": 2,
   "name": "Twitter video downloader",
+  "description": "Download twitter videos in best quality with one simple click",
+  "manifest_version": 3,
   "icons": {
     "16": "icons/icon-16.png",
     "32": "icons/icon-32.png",
@@ -8,16 +9,21 @@
     "128": "icons/icon-128.png"
   },
   "background": {
-    "scripts": ["background.bundle.js"],
-    "persistent": true
+    "service_worker": "background.js"
   },
   "content_scripts": [
     {
       "run_at": "document_start",
       "matches": ["*://*.twitter.com/*"],
-      "js": ["content.bundle.js"],
-      "css": ["content.bundle.css"]
+      "js": ["inject.js"],
+      "css": ["content.css"]
     }
   ],
-  "permissions": ["webRequest", "*://*.twitter.com/*"]
+  "web_accessible_resources": [
+    {
+      "resources": ["content.js"],
+      "matches": ["*://*.twitter.com/*"]
+    }
+  ],
+  "host_permissions": ["*://*.twitter.com/*"]
 }
