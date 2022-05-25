@@ -1,10 +1,11 @@
-chrome.runtime.onInstalled.addListener(function () {
-  chrome.tabs.query(
-    { url: "*://twitter.com/*", currentWindow: true },
-    function (tabs) {
+import browser from "webextension-polyfill";
+
+browser.runtime.onInstalled.addListener(function () {
+  browser.tabs
+    .query({ url: "*://twitter.com/*", currentWindow: true })
+    .then(function (tabs) {
       tabs.forEach((tab) => {
-        chrome.tabs.reload(tab.id);
+        browser.tabs.reload(tab.id);
       });
-    }
-  );
+    });
 });
