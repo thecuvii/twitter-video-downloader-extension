@@ -1,6 +1,32 @@
 export default function (response) {
+  // tweet entites
   const entities = [...findEntities(response, "extended_entities")];
-  return entities
+
+  // tweet card entites
+  const cards = [...findEntities(response, "string_value")]
+    .map(function (value) {
+      try {
+        const parsedValue = JSON.parse(value.string_value);
+        const mediaEntity = Object.values(parsedValue.media_entities)
+          .filter(function (media) {
+            return ["video", "animated_gif"].indexOf(media.type) > -1;
+          })
+          .shift();
+        if (mediaEntity) {
+          return {
+            extended_entities: {
+              media: [mediaEntity],
+            },
+          };
+        }
+      } catch (ex) {
+        return false;
+      }
+      return false;
+    })
+    .filter(Boolean);
+
+  return [...cards, ...entities]
     .filter(function (entity) {
       return entity.extended_entities.media.filter(function (media) {
         return ["video", "animated_gif"].indexOf(media.type) > -1;
