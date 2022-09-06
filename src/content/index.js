@@ -41,7 +41,7 @@ observeDom(function ({ $group, $image }) {
       event.preventDefault();
       this.disabled = true;
       this.classList.add("loading");
-      await downloadVideo(checkVideo.video, checkVideo.id);
+      await downloadVideo(checkVideo.video, checkVideo.text);
       this.classList.remove("loading");
       this.classList.add("success");
     });

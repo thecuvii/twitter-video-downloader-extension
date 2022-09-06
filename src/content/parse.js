@@ -1,9 +1,9 @@
 export default function (response) {
   // tweet entites
-  const entities = [...findEntities(response, "extended_entities")];
+  const entities = [...find(response, "extended_entities")];
 
   // tweet card entites
-  const cards = [...findEntities(response, "string_value")]
+  const cards = [...find(response, "string_value")]
     .map(function (value) {
       try {
         const parsedValue = JSON.parse(value.string_value);
@@ -17,9 +17,10 @@ export default function (response) {
             extended_entities: {
               media: [mediaEntity],
             },
+            id_str: mediaEntity.id_str,
           };
         }
-      } catch (ex) {
+      } catch (e) {
         return false;
       }
       return false;
@@ -36,7 +37,6 @@ export default function (response) {
       const {
         extended_entities: { media },
       } = entity;
-
       return media
         .map(function (item) {
           const video = item.video_info.variants
@@ -54,6 +54,7 @@ export default function (response) {
               item.media_url_https.lastIndexOf(".")
             ),
             video: video.url,
+            text: textify(entity),
           };
         })
         .shift();
@@ -63,20 +64,37 @@ export default function (response) {
     });
 }
 
-function* findEntities(source, search) {
+function find(source, key, list = []) {
   if (!source) {
-    return;
+    return list;
   }
-  const [key] = Object.keys(source);
-  if (key === undefined) {
-    return;
+
+  if (typeof source !== "object") {
+    return list;
   }
-  const { [key]: value, ...rest } = source;
-  if (key === search) {
-    yield source;
+
+  if (typeof source[key] !== "undefined") {
+    list.push(source);
+  } else {
+    Object.values(source).forEach(function (deep) {
+      list.push(...find(deep, key));
+    });
   }
-  if (typeof value === "object") {
-    yield* findEntities(value, search);
+
+  return list;
+}
+
+function textify(entity) {
+  const tweetId = entity.id_str || entity.conversation_id_str;
+
+  if (!entity.full_text) {
+    return tweetId;
   }
-  yield* findEntities(rest, search);
+
+  return entity.full_text
+    .split("https://t.co")[0]
+    .trim()
+    .replace(/(\r\n|\n|\r)/gm, "")
+    .substr(0, 50)
+    .concat(`.. #${tweetId}`);
 }

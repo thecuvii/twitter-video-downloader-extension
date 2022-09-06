@@ -8,10 +8,15 @@ export default function (callback) {
         if ($element.nodeName === "IMG") {
           const $container = $element.closest("article[role='article']");
           if ($container) {
-            callback({
-              $image: $element,
-              $group: $container.querySelector("[role='group']"),
-            });
+            const $group = $container.querySelector(
+              "[role='group']:last-child"
+            );
+            if ($group) {
+              callback({
+                $image: $element,
+                $group: $group,
+              });
+            }
           }
         }
       });
