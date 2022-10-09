@@ -8,7 +8,11 @@ export default function (callback) {
         this.onreadystatechange = function () {
           const { readyState, responseText } = this;
           if (readyState === XMLHttpRequest.DONE && responseText) {
-            callback(JSON.parse(responseText));
+            try {
+              callback(JSON.parse(responseText));
+            } catch (e) {
+              console.log(e);
+            }
           }
           return xhrStateChange.apply(this, arguments);
         };
