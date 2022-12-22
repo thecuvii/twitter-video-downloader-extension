@@ -1,7 +1,7 @@
 export default function (callback) {
   const xhrOpen = XMLHttpRequest.prototype.open;
   XMLHttpRequest.prototype.open = function (_, requestUrl) {
-    if (/twitter\.com\/i\/api\/(2|graphql|1\.1)\//i.test(requestUrl)) {
+    if (/api\.twitter\.com\/(2|graphql|1\.1)\//i.test(requestUrl)) {
       const xhrSend = this.send;
       this.send = function () {
         const xhrStateChange = this.onreadystatechange;
