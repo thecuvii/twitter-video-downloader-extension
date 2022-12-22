@@ -5,22 +5,22 @@ import observeDom from "./observe";
 import Button from "./button.html";
 import Mustache from "mustache";
 
-const videos = [];
+const videoList = [];
 onRequestDone(function (response) {
   const requestVideos = parseRequest(response);
   if (requestVideos.length) {
-    videos.push(...requestVideos);
+    videoList.push(...requestVideos);
   }
 });
 
 observeDom(function ({ $group, $image }) {
-  const checkVideo = videos.find(function (video) {
+  const findVideo = videoList.find(function (video) {
     return $image.src.indexOf(video.photo) > -1;
   });
   const checkExtensionButton = $group.getAttribute(
     "data-twitter-video-downloader-extension"
   );
-  if (checkVideo && !checkExtensionButton) {
+  if (findVideo && !checkExtensionButton) {
     $group.setAttribute("data-twitter-video-downloader-extension", "true");
     const { width, height } = $group
       .querySelector("svg")
@@ -41,7 +41,12 @@ observeDom(function ({ $group, $image }) {
       event.preventDefault();
       this.disabled = true;
       this.classList.add("loading");
-      await downloadVideo(checkVideo.video, checkVideo.text);
+      const mixedVideos = videoList.filter(function (v) {
+        return v.entityId === findVideo.entityId;
+      });
+      for (const video of mixedVideos) {
+        await downloadVideo(video.video, video.text);
+      }
       this.classList.remove("loading");
       this.classList.add("success");
     });

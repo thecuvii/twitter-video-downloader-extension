@@ -29,35 +29,33 @@ export default function (response) {
 
   return [...cards, ...entities]
     .filter(function (entity) {
-      return entity.extended_entities.media.filter(function (media) {
-        return ["video", "animated_gif"].indexOf(media.type) > -1;
-      }).length;
+      return entity.extended_entities.media.filter(checkMediaHasVideo).length;
     })
-    .map(function (entity) {
+    .flatMap(function (entity) {
+      const entityId = entity.id_str || entity.conversation_id_str;
       const {
         extended_entities: { media },
       } = entity;
-      return media
-        .map(function (item) {
-          const video = item.video_info.variants
-            .filter(function (variant) {
-              return variant.content_type === "video/mp4";
-            })
-            .sort(function (first, second) {
-              return second.bitrate - first.bitrate;
-            })
-            .shift();
-          return {
-            id: item.id_str,
-            photo: item.media_url_https.substr(
-              0,
-              item.media_url_https.lastIndexOf(".")
-            ),
-            video: video.url,
-            text: textify(entity),
-          };
-        })
-        .shift();
+      return media.filter(checkMediaHasVideo).map(function (item) {
+        const video = item.video_info.variants
+          .filter(function (variant) {
+            return variant.content_type === "video/mp4";
+          })
+          .sort(function (first, second) {
+            return second.bitrate - first.bitrate;
+          })
+          .shift();
+        return {
+          id: item.id_str,
+          entityId: entityId,
+          photo: item.media_url_https.substr(
+            0,
+            item.media_url_https.lastIndexOf(".")
+          ),
+          video: video.url,
+          text: textify(entity),
+        };
+      });
     })
     .filter(function (video, index, self) {
       return self.indexOf(video) === index;
@@ -85,16 +83,25 @@ function find(source, key, list = []) {
 }
 
 function textify(entity) {
-  const tweetId = entity.id_str || entity.conversation_id_str;
+  const entityId = entity.id_str || entity.conversation_id_str;
 
   if (!entity.full_text) {
-    return tweetId;
+    return entityId;
   }
 
-  return entity.full_text
+  let text = entity.full_text
     .split("https://t.co")[0]
     .trim()
     .replace(/(\r\n|\n|\r)/gm, "")
-    .substr(0, 50)
-    .concat(`.. #${tweetId}`);
+    .substr(0, 50);
+
+  if (!text) {
+    text = entityId;
+  }
+
+  return text;
+}
+
+function checkMediaHasVideo(media) {
+  return media.type === "video" || media.type === "animated_gif";
 }
