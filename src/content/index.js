@@ -41,9 +41,19 @@ observeDom(function ({ $group, $image }) {
       event.preventDefault();
       this.disabled = true;
       this.classList.add("loading");
-      const mixedVideos = videoList.filter(function (v) {
-        return v.entityId === findVideo.entityId;
-      });
+      const mixedVideos = videoList
+        .filter(function (v) {
+          return v.entityId === findVideo.entityId;
+        })
+        .filter(function (value, index, self) {
+          return (
+            index ===
+            self.findIndex(function (find) {
+              return find.id === value.id;
+            })
+          );
+        });
+      console.log(mixedVideos);
       for (const video of mixedVideos) {
         await downloadVideo(video.video, video.text);
       }
