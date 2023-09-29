@@ -1,5 +1,8 @@
 [data-twitter-video-downloader-extension] {
   max-width: 100% !important;
+  > div {
+    flex: auto;
+  }
   .extension-button {
     display: flex;
     align-items: center;
