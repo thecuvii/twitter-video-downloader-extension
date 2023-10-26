@@ -29,6 +29,7 @@ observeDom(function ({ $group, $image }) {
     const $button = document.createElement("button");
     $button.classList.add("extension-button");
     $button.setAttribute("role", "button");
+    $button.setAttribute("title", "Download");
     $button.insertAdjacentHTML(
       "beforeend",
       Mustache.render(Button, {
@@ -53,7 +54,6 @@ observeDom(function ({ $group, $image }) {
             })
           );
         });
-      console.log(mixedVideos);
       for (const video of mixedVideos) {
         await downloadVideo(video.video, video.text);
       }
