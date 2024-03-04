@@ -12,7 +12,6 @@ const options = {
       path.resolve(__dirname, "src/content/index.scss"),
     ],
     inject: path.resolve(__dirname, "src/inject.js"),
-    background: path.resolve(__dirname, "src/background/index.js"),
   },
   output: {
     path: path.resolve(__dirname, "dist"),

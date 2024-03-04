@@ -8,9 +8,6 @@
     "48": "icons/icon-48.png",
     "128": "icons/icon-128.png"
   },
-  "background": {
-    "service_worker": "background.js"
-  },
   "content_scripts": [
     {
       "run_at": "document_start",
@@ -24,6 +21,5 @@
       "resources": ["content.js"],
       "matches": ["*://*.twitter.com/*", "*://*.x.com/*"]
     }
-  ],
-  "host_permissions": ["*://*.twitter.com/*", "*://*.x.com/*"]
+  ]
 }
