@@ -14,7 +14,7 @@
   "content_scripts": [
     {
       "run_at": "document_start",
-      "matches": ["*://*.twitter.com/*"],
+      "matches": ["*://*.twitter.com/*", "*://*.x.com/*"],
       "js": ["inject.js"],
       "css": ["content.css"]
     }
@@ -22,8 +22,8 @@
   "web_accessible_resources": [
     {
       "resources": ["content.js"],
-      "matches": ["*://*.twitter.com/*"]
+      "matches": ["*://*.twitter.com/*", "*://*.x.com/*"]
     }
   ],
-  "host_permissions": ["*://*.twitter.com/*"]
+  "host_permissions": ["*://*.twitter.com/*", "*://*.x.com/*"]
 }
