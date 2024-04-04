@@ -40,6 +40,8 @@ observeDom(function ({ $group, $image }) {
     $group.appendChild($button);
     $button.addEventListener("click", async function (event) {
       event.preventDefault();
+      event.stopImmediatePropagation();
+
       this.disabled = true;
       this.classList.add("loading");
       const mixedVideos = videoList

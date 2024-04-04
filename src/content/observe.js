@@ -6,7 +6,8 @@ export default function (callback) {
           return false;
         }
         if ($element.nodeName === "IMG") {
-          const $container = $element.closest("article[role='article']");
+          // tweeet detail or fullscreen view
+          const $container = $element.closest("article[role='article'], div[aria-modal='true']");
           if ($container) {
             const $group = $container.querySelector(
               "[role='group']:last-child"
