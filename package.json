@@ -1,6 +1,6 @@
 {
   "name": "twitter-video-downloader-extension",
-  "version": "2.18.0",
+  "version": "2.19.0",
   "description": "Download twitter videos in best quality with one simple click",
   "main": "index.js",
   "scripts": {
